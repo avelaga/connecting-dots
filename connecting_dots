@@ -1,0 +1,37 @@
+Dot[] dots;
+int size=80;
+int VAR=100;
+
+void setup() {
+  size(600, 600);
+  colorMode(HSB);
+  dots=new Dot[size]; 
+  for (int x=0; x<size; x++) {
+    dots[x]=new Dot();
+  }
+
+}
+
+void draw() {
+  background(0);
+   drawLines();
+  for (Dot d : dots) {
+    d.update();
+  }
+ //saveFrame("####.tiff");
+}
+
+// i know this is probably terrible efficiency and super redundant 
+void drawLines() {
+  stroke(0,0,255,120);
+  for (Dot a : dots) {
+    for (Dot b : dots) {
+      if (!b.equals(a)) {
+        if (b.collidesWith(a,VAR)) {
+          
+          line(b.x, b.y, a.x, a.y);
+        }
+      }
+    }
+  }
+}
